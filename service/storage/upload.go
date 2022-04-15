@@ -11,8 +11,9 @@ import (
 )
 
 const (
-	FormKey        = "myFile"
-	MaxMem         = 10 << 20
+	FormKey = "myFile"
+	MaxMem  = 10 << 20
+	MaxLine = 1000000
 )
 
 func (s Service) upload(w http.ResponseWriter, r *http.Request) {
@@ -52,7 +53,9 @@ func (s Service) upload(w http.ResponseWriter, r *http.Request) {
 		tempFile.Write(fileBytes)
 	}
 
-	s.WorkerPool.AddTask(newLocation)
+	s.WorkerPool.AddTask(func() error {
+		return util.SplitFile(newLocation, MaxLine)
+	})
 
 	fmt.Fprintf(w, "Successfully Uploaded File\n")
 

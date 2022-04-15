@@ -64,6 +64,7 @@ func SplitFile(filePath string, maxLines int) error {
 		if err != nil {
 			return err
 		}
+		log.Printf("[SplitFile] Clean up file %v", filePath)
 	}
 
 	fmt.Println("[SplitFile] End")
