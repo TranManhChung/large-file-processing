@@ -2,7 +2,7 @@ package storage
 
 import (
 	"fmt"
-	"github.com/TranManhChung/csv-upload/common/util"
+	"github.com/TranManhChung/large-file-processing/service/common/util"
 	"io/ioutil"
 	"log"
 	"mime/multipart"
@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	CSVStoragePath  = "/Users/lap-00935/go/src/github.com/TranManhChung/csv-upload/service/storage/data"
+	CSVStoragePath  = "/Users/lap-00935/go/src/github.com/TranManhChung/large-file-processing/service/storage/data"
 	FileNamePattern = "upload-*.csv"
 	FormKey         = "myFile"
 	MaxMem          = 10 << 20
