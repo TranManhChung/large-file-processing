@@ -2,6 +2,17 @@ package storage
 
 import "net/http"
 
-func SetupRoutes() {
-	http.HandleFunc("/upload", upload)
+type Service struct {
+	WorkerPool WorkerPool
 }
+
+func NewService(cfg Config) {
+	service:= Service{
+		WorkerPool: NewWorkerPool(cfg.MaxWorkerPoolTask, cfg.MaxWorkers),
+	}
+
+	service.WorkerPool.Run()
+
+	http.HandleFunc("/upload", service.upload)
+}
+

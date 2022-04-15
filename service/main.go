@@ -11,6 +11,6 @@ func main() {
 	defer util.RecoverFunc("save")
 
 	fmt.Println("Server is running ...")
-	storage.SetupRoutes()
+	storage.NewService(storage.NewDefaultConfig())
 	http.ListenAndServe(":8080", nil)
 }
