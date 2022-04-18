@@ -63,6 +63,11 @@ func (s *Service) parse(ctx context.Context, msg string) {
 	for {
 		data, err := csvReader.Read()
 		if err == io.EOF {
+			for _, v := range prices {
+				if err = s.PriceRepo.Adds(ctx, v...); err != nil {
+					log.Fatalf("[Parser] Store data failed, file: %v, detail: %e", msg, err)
+				}
+			}
 			break
 		}
 		if err != nil {
@@ -91,6 +96,7 @@ func (s *Service) parse(ctx context.Context, msg string) {
 				}
 			}
 			prices = make(map[string][]Price)
+			numItems = 0
 		}
 	}
 

@@ -52,7 +52,9 @@ func (o *PriceRepo) Adds(ctx context.Context, prices ...Price) error {
 		return err
 	}
 
-	_, err := o.db.NewInsert().Model(&prices[0]).Table(tableName).ModelTableExpr(tableName).Exec(ctx)
+	_, err := o.db.NewInsert().Model(&prices).ModelTableExpr(tableName).Exec(ctx)
+
+	return err
 
 	return err
 }

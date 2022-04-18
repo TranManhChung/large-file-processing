@@ -4,8 +4,9 @@ import (
 	"strconv"
 )
 
-type Price struct { // remember to add tag for field
-	Unix   int64 `bun:",pk,"`
+type Price struct {
+
+	Unix   float64 `bun:",pk,"`
 	Symbol string
 	Open   float64
 	High   float64
@@ -14,7 +15,7 @@ type Price struct { // remember to add tag for field
 }
 
 func sliceStrToPrice(in []string) (Price, error) {
-	id, err := strconv.ParseInt(in[0], 10, 64)
+	id, err := strconv.ParseFloat(in[0], 64)
 	if err != nil {
 		return Price{}, err
 	}
