@@ -1,21 +1,17 @@
-# syntax=docker/dockerfile:1
-
-FROM golang:latest
+FROM golang:1.16-alpine
 
 WORKDIR /app
 
 COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
-RUN go get github.com/TranManhChung/large-file-processing/parser
-RUN go get github.com/TranManhChung/large-file-processing/pkg/util
-RUN go get github.com/TranManhChung/large-file-processing/quering
-RUN go get github.com/TranManhChung/large-file-processing/storage
+COPY ./ ./
 
 COPY *.go ./
 
 RUN go build -o /large-file-processing
 
 EXPOSE 8080
+EXPOSE 8081
 
 CMD [ "/large-file-processing" ]
