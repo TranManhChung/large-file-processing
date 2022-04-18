@@ -3,7 +3,7 @@ package quering
 import (
 	"context"
 	"encoding/json"
-	"github.com/TranManhChung/large-file-processing/service/parser"
+	"github.com/TranManhChung/large-file-processing/parser"
 	"net/http"
 	"strconv"
 )

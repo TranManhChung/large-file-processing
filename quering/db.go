@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"github.com/TranManhChung/large-file-processing/service/parser"
+	"github.com/TranManhChung/large-file-processing/parser"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/sqlitedialect"
 )

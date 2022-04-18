@@ -1,4 +1,4 @@
-module github.com/TranManhChung/large-file-processing/service
+module github.com/TranManhChung/large-file-processing
 
 go 1.16
 
@@ -7,5 +7,4 @@ require (
 	github.com/stretchr/testify v1.7.0
 	github.com/uptrace/bun v1.1.3
 	github.com/uptrace/bun/dialect/sqlitedialect v1.1.3
-	github.com/uptrace/bun/extra/bundebug v1.1.3
 )

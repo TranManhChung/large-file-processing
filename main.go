@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/TranManhChung/large-file-processing/service/parser"
-	"github.com/TranManhChung/large-file-processing/service/pkg/util"
-	"github.com/TranManhChung/large-file-processing/service/quering"
-	"github.com/TranManhChung/large-file-processing/service/storage"
+	"github.com/TranManhChung/large-file-processing/parser"
+	"github.com/TranManhChung/large-file-processing/pkg/util"
+	"github.com/TranManhChung/large-file-processing/quering"
+	"github.com/TranManhChung/large-file-processing/storage"
 	"os"
 	"os/signal"
 )

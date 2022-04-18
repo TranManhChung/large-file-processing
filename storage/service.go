@@ -2,7 +2,7 @@ package storage
 
 import (
 	"fmt"
-	"github.com/TranManhChung/large-file-processing/service/pkg/worker"
+	"github.com/TranManhChung/large-file-processing/pkg/worker"
 	"net/http"
 )
 
