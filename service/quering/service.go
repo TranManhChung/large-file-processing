@@ -1,4 +1,4 @@
-package query
+package quering
 
 import (
 	"fmt"
@@ -26,6 +26,6 @@ func New() func() {
 
 	return func() {
 		err = bunDB.Close()
-		fmt.Println("Clean up query, detail: ", err)
+		fmt.Println("Clean up quering, detail: ", err)
 	}
 }

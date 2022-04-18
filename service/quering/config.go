@@ -1,4 +1,4 @@
-package query
+package quering
 
 type Config struct {
 	Postgresql Postgresql
@@ -16,12 +16,12 @@ type Postgresql struct {
 func NewDefaultConfig() Config {
 	return Config{
 		Postgresql: Postgresql{
-			"postgres",
-			"chungtm",
-			"localhost:5432",
-			"postgres",
-			"postgres",
-			"postgres://%s:%s@%s/%s?sslmode=disable",
+			Username:   "postgres",
+			Password:   "chungtm",
+			Address:    "localhost:5432",
+			Database:   "postgres",
+			DriverName: "postgres",
+			Format:     "postgres://%s:%s@%s/%s?sslmode=disable",
 		},
 	}
 }
