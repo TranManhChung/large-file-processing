@@ -1,6 +1,10 @@
 package storage
 
 type Config struct {
+	Worker Worker
+}
+
+type Worker struct {
 	MaxWorkerPoolTask int
 	MaxWorkers        int
 	WorkerName        string
@@ -8,8 +12,10 @@ type Config struct {
 
 func NewDefaultConfig() Config {
 	return Config{
-		MaxWorkers:        1,
-		MaxWorkerPoolTask: 10,
-		WorkerName:        "StorageWorker",
+		Worker: Worker{
+			MaxWorkers:        1,
+			MaxWorkerPoolTask: 10,
+			WorkerName:        "StorageWorker",
+		},
 	}
 }

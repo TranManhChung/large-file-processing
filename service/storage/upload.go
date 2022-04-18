@@ -4,7 +4,7 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
-	"github.com/TranManhChung/large-file-processing/service/common/util"
+	"github.com/TranManhChung/large-file-processing/service/pkg/util"
 	"github.com/TranManhChung/large-file-processing/service/queue"
 	"io"
 	"io/ioutil"
@@ -89,7 +89,9 @@ func (s Service) upload(w http.ResponseWriter, r *http.Request) {
 func SplitFile(filePath string, maxLines int) error {
 	defer util.RecoverFunc("SplitFile")
 
-	fmt.Println("[SplitFile] Start")
+	log.Println("[SplitFile] Start")
+	defer log.Println("[SplitFile] End")
+
 	var dest *os.File
 	var data []string
 
@@ -123,6 +125,7 @@ func SplitFile(filePath string, maxLines int) error {
 			if err = writer.Write(data); err != nil {
 				break
 			}
+
 		}
 		writer.Flush()
 		dest.Close()
@@ -138,6 +141,5 @@ func SplitFile(filePath string, maxLines int) error {
 		log.Printf("[SplitFile] Clean up file %v", filePath)
 	}
 
-	fmt.Println("[SplitFile] End")
 	return err
 }

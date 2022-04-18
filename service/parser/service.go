@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/csv"
 	"fmt"
-	"github.com/TranManhChung/large-file-processing/service/common/util"
-	"github.com/TranManhChung/large-file-processing/service/common/worker"
+	"github.com/TranManhChung/large-file-processing/service/pkg/util"
+	"github.com/TranManhChung/large-file-processing/service/pkg/worker"
 	"github.com/TranManhChung/large-file-processing/service/queue"
 	"io"
 	"log"
@@ -55,7 +55,10 @@ func (s *Service) parse(ctx context.Context, msg string) {
 	numField := reflect.TypeOf(Price{}).NumField()
 	source, err := os.Open(msg)
 	if err != nil {
+		log.Printf("[Error][Parser] Open file failed, file: %v, detail: %v", msg, err)
+		return
 	}
+	defer source.Close()
 
 	csvReader := csv.NewReader(source)
 	numItems := 0
@@ -65,25 +68,25 @@ func (s *Service) parse(ctx context.Context, msg string) {
 		if err == io.EOF {
 			for _, v := range prices {
 				if err = s.PriceRepo.Adds(ctx, v...); err != nil {
-					log.Fatalf("[Parser] Store data failed, file: %v, detail: %e", msg, err)
+					log.Fatalf("[Error][Parser] Store data failed, file: %v, detail: %e", msg, err)
 				}
 			}
 			break
 		}
 		if err != nil {
-			log.Printf("[Parser] Read file failed, file: %v, detail: %e", msg, err)
+			log.Printf("[Error][Parser] Read file failed, file: %v, detail: %e", msg, err)
 			break
 		}
 		if reflect.DeepEqual(data, []string{"UNIX", "SYMBOL", "OPEN", "HIGH", "LOW", "CLOSE"}) {
 			continue
 		}
 		if numField != len(data) {
-			log.Printf("[Parser] Not enough fields, file: %v, data: %v, numfield: %v, actual: %v", msg, data, numField, len(data))
+			log.Printf("[Error][Parser] Not enough fields, file: %v, data: %v, numfield: %v, actual: %v", msg, data, numField, len(data))
 			break
 		}
 		o, err := sliceStrToPrice(data)
 		if err != nil {
-			log.Printf("[Parser] Parse data failed, file: %v, detail: %e", msg, err)
+			log.Printf("[Error][Parser] Parse data failed, file: %v, detail: %e", msg, err)
 			break
 		}
 		prices[o.Symbol] = append(prices[o.Symbol], o)
@@ -98,6 +101,4 @@ func (s *Service) parse(ctx context.Context, msg string) {
 			numItems = 0
 		}
 	}
-
-	source.Close()
 }

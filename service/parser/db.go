@@ -7,7 +7,6 @@ import (
 	_ "github.com/lib/pq"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/sqlitedialect"
-	"github.com/uptrace/bun/extra/bundebug"
 	"strings"
 )
 
@@ -32,10 +31,10 @@ func NewBunDB(cfg Config) (*bun.DB, error) {
 	}
 	bunDB := bun.NewDB(db, sqlitedialect.New())
 
-	bunDB.AddQueryHook(bundebug.NewQueryHook(
-		bundebug.WithVerbose(true),
-		bundebug.FromEnv("BUNDEBUG"),
-	))
+	//bunDB.AddQueryHook(bundebug.NewQueryHook(
+	//	bundebug.WithVerbose(true),
+	//	bundebug.FromEnv("BUNDEBUG"),
+	//))
 
 	return bunDB, nil
 }
@@ -53,8 +52,5 @@ func (o *PriceRepo) Adds(ctx context.Context, prices ...Price) error {
 	}
 
 	_, err := o.db.NewInsert().Model(&prices).ModelTableExpr(tableName).Exec(ctx)
-
-	return err
-
 	return err
 }

@@ -46,8 +46,10 @@ func (p Pool) Run() {
 
 func (p Pool) ReleaseBuffer() {
 	for {
-		task := p.Buffer[0]
-		p.TaskQueue <- task
-		p.Buffer = p.Buffer[1:]
+		if len(p.Buffer) > 0 {
+			task := p.Buffer[0]
+			p.TaskQueue <- task
+			p.Buffer = p.Buffer[1:]
+		}
 	}
 }

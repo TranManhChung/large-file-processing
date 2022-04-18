@@ -2,7 +2,7 @@ package storage
 
 import (
 	"fmt"
-	"github.com/TranManhChung/large-file-processing/service/common/worker"
+	"github.com/TranManhChung/large-file-processing/service/pkg/worker"
 	"net/http"
 )
 
@@ -13,7 +13,7 @@ type Service struct {
 func New() func() {
 	cfg := NewDefaultConfig()
 	service := Service{
-		WorkerPool: worker.New(cfg.MaxWorkerPoolTask, cfg.MaxWorkers, cfg.WorkerName),
+		WorkerPool: worker.New(cfg.Worker.MaxWorkerPoolTask, cfg.Worker.MaxWorkers, cfg.Worker.WorkerName),
 	}
 
 	service.WorkerPool.Run()

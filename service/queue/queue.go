@@ -29,9 +29,11 @@ func GetQueue() msgQueue {
 
 func (q msgQueue) Release() {
 	for {
-		msg := queue.buffer[0]
-		queue.queue <- msg
-		queue.buffer = queue.buffer[1:]
+		if len(queue.buffer) > 0 {
+			msg := queue.buffer[0]
+			queue.queue <- msg
+			queue.buffer = queue.buffer[1:]
+		}
 	}
 }
 

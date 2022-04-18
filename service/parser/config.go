@@ -23,17 +23,17 @@ type Postgresql struct {
 func NewDefaultConfig() Config {
 	return Config{
 		Worker: Worker{
-			1,
-			10,
-			"ParserWorker",
+			MaxWorkers:        1,
+			MaxWorkerPoolTask: 10,
+			WorkerName:        "ParserWorker",
 		},
 		Postgresql: Postgresql{
-			"postgres",
-			"chungtm",
-			"localhost:5432",
-			"postgres",
-			"postgres",
-			"postgres://%s:%s@%s/%s?sslmode=disable",
+			Username:   "postgres",
+			Password:   "chungtm",
+			Address:    "localhost:5432",
+			Database:   "postgres",
+			DriverName: "postgres",
+			Format:     "postgres://%s:%s@%s/%s?sslmode=disable",
 		},
 	}
 }

@@ -7,7 +7,6 @@ import (
 	"github.com/TranManhChung/large-file-processing/service/parser"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/sqlitedialect"
-	"github.com/uptrace/bun/extra/bundebug"
 )
 
 type IPriceRepo interface {
@@ -32,10 +31,10 @@ func NewBunDB(cfg Config) (*bun.DB, error) {
 	}
 	bunDB := bun.NewDB(db, sqlitedialect.New())
 
-	bunDB.AddQueryHook(bundebug.NewQueryHook(
-		bundebug.WithVerbose(true),
-		bundebug.FromEnv("BUNDEBUG"),
-	))
+	//bunDB.AddQueryHook(bundebug.NewQueryHook(
+	//	bundebug.WithVerbose(true),
+	//	bundebug.FromEnv("BUNDEBUG"),
+	//))
 
 	return bunDB, nil
 }
