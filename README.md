@@ -9,4 +9,4 @@ docker-compose up --build
 import to postman to run api: ./interview.postman_collection.json
 
 # System design: ./pkg/system-design
-this repo is following develop-design
+this repo is following development-design
