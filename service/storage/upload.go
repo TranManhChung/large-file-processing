@@ -23,7 +23,7 @@ const (
 
 type UploadResponse struct {
 	Status  string `json:"status"`
-	Message string `json:"message"`
+	Message string `json:"message,omitempty"`
 }
 
 func (s Service) upload(w http.ResponseWriter, r *http.Request) {

@@ -75,7 +75,6 @@ func (s *Service) parse(ctx context.Context, msg string) {
 			break
 		}
 		if reflect.DeepEqual(data, []string{"UNIX", "SYMBOL", "OPEN", "HIGH", "LOW", "CLOSE"}) {
-			fmt.Println("fasndfkasfdkasjfkasdjlfkdsjflaj")
 			continue
 		}
 		if numField != len(data) {

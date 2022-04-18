@@ -5,13 +5,12 @@ import (
 )
 
 type Price struct {
-
-	Unix   float64 `bun:",pk,"`
-	Symbol string
-	Open   float64
-	High   float64
-	Low    float64
-	Close  float64
+	Unix   float64 `bun:",pk," json:"unix"`
+	Symbol string  `json:"symbol"`
+	Open   float64 `json:"open"`
+	High   float64 `json:"high"`
+	Low    float64 `json:"low"`
+	Close  float64 `json:"close"`
 }
 
 func sliceStrToPrice(in []string) (Price, error) {
@@ -37,7 +36,7 @@ func sliceStrToPrice(in []string) (Price, error) {
 	}
 
 	return Price{
-		Unix:     id,
+		Unix:   id,
 		Symbol: in[1],
 		Open:   open,
 		High:   high,
