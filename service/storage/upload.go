@@ -2,6 +2,7 @@ package storage
 
 import (
 	"encoding/csv"
+	"encoding/json"
 	"fmt"
 	"github.com/TranManhChung/large-file-processing/service/common/util"
 	"github.com/TranManhChung/large-file-processing/service/queue"
@@ -20,15 +21,34 @@ const (
 	MaxLine = 50
 )
 
+type UploadResponse struct {
+	Status  string `json:"status"`
+	Message string `json:"message"`
+}
+
 func (s Service) upload(w http.ResponseWriter, r *http.Request) {
 	defer util.RecoverFunc("upload")
 	log.Printf("[Info][Upload] Start")
+	defer log.Printf("[Info][Upload] End")
+
+	w.Header().Set("Content-Type", "application/json")
 
 	r.ParseMultipartForm(MaxMem)
 
 	file, handler, err := r.FormFile(FormKey)
 	if err != nil {
 		log.Printf("[Error][Upload] Retrieve file failed, detail: %v", err)
+		json.NewEncoder(w).Encode(UploadResponse{
+			Status:  "failed",
+			Message: "handle file failed",
+		})
+		return
+	}
+	if handler.Filename[len(handler.Filename)-4:] != ".csv" {
+		json.NewEncoder(w).Encode(UploadResponse{
+			Status:  "failed",
+			Message: "invalid format",
+		})
 		return
 	}
 	defer file.Close()
@@ -61,9 +81,9 @@ func (s Service) upload(w http.ResponseWriter, r *http.Request) {
 		return SplitFile(newLocation, MaxLine)
 	})
 
-	fmt.Fprintf(w, "Successfully Uploaded File\n")
-
-	log.Printf("[Info][Upload] End")
+	json.NewEncoder(w).Encode(UploadResponse{
+		Status: "success",
+	})
 }
 
 func SplitFile(filePath string, maxLines int) error {
