@@ -1,0 +1,53 @@
+{
+	"info": {
+		"_postman_id": "77b80779-0c79-426d-87c0-77a139627b48",
+		"name": "interview",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "upload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "myFile",
+							"type": "file",
+							"src": "/Users/lap-00935/Desktop/light-csv.csv",
+							"disabled": true
+						},
+						{
+							"key": "myFile",
+							"type": "file",
+							"src": "/Users/lap-00935/Desktop/robandjenny.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}
